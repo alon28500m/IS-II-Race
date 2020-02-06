@@ -10,29 +10,35 @@ public class Circuit {
 		this.cars = cars.clone(); 
 	}
 	
+	public Car getCar(int i) {
+		if (i >= 0 && i < numCars) {
+			return cars[i];
+		}
+		else {
+			return null;
+		}
+	}
+	
 	public void run() {
 		while(hasFinished() == -1) {
-			for(int i = 0; i < numCars; i++) {
-				print(cars[i]);
-			}
+			print(cars, numCars);
 			for(int i = 0; i < numCars; i++) {
 				cars[i].advance();
 			}
 			System.out.println();
 		}
-		for(int i = 0; i < numCars; i++) {
-			print(cars[i]);
-		}
+		print(cars, numCars);
 		System.out.println( "Car " + cars[hasFinished()].getId() + " wins!!!");
 	}
 	
-	public void print(Car car) {
-		if (car.getPos() >= circuitLenght) {
-			car.setPos(circuitLenght);
+	public void print(Car[] cars, int numCars) {
+		for(int i = 0; i < numCars; i++) {
+		if (cars[i].getPos() >= circuitLenght) {
+			cars[i].setPos(circuitLenght);
 		}
-		for(int i = 0; i <= circuitLenght; i++) {
-			if (i == car.getPos()) {
-				System.out.print(car);
+		for(int j = 0; j <= circuitLenght; j++) {
+			if (j == cars[i].getPos()) {
+				System.out.print(cars[i]);
 			}
 			else {
 				System.out.print("_");
@@ -41,6 +47,7 @@ public class Circuit {
 		
 		System.out.print("|");
 		System.out.println();
+		}
 	}
 	
 	private int hasFinished() {
